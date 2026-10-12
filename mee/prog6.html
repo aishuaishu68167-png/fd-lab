@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Calculator</title>
+<style>
+*{box-sizing:border-box}body{margin:0;height:100vh;display:grid;place-items:center;background:#111;color:#fff;font-family:Arial}#calc{width:300px;background:#1f1f1f;padding:16px;border-radius:16px}#display{height:70px;background:#000;border-radius:10px;display:flex;align-items:center;justify-content:flex-end;padding:10px;margin-bottom:12px;font-size:2rem;overflow:hidden}#keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}button{height:55px;border:0;border-radius:10px;background:#444;color:#fff;font-size:1.1rem;cursor:pointer}button.op{background:#ffb000;color:#111}.equals{background:#ff7a00}.wide{grid-column:span 2}
+</style>
+</head>
+<body>
+<div id="calc">
+  <div id="display">0</div>
+  <div id="keys">
+    <button data-v="C">C</button>
+    <button data-v="DEL">DEL</button>
+    <button data-v="%">%</button>
+    <button class="op" data-v="/">÷</button>
+    <button data-v="7">7</button>
+    <button data-v="8">8</button>
+    <button data-v="9">9</button>
+    <button class="op" data-v="*">×</button>
+    <button data-v="4">4</button>
+    <button data-v="5">5</button>
+    <button data-v="6">6</button>
+    <button class="op" data-v="-">−</button>
+    <button data-v="1">1</button>
+    <button data-v="2">2</button>
+    <button data-v="3">3</button>
+    <button class="op" data-v="+">+</button>
+    <button class="wide" data-v="0">0</button>
+    <button data-v=".">.</button>
+    <button class="equals" data-v="=">=</button>
+  </div>
+</div>
+<script>
+const d=document.getElementById('display'),k=document.getElementById('keys');
+let current='0',saved='',op='',wait=false;
+const render=()=>d.textContent=current;
+const calc=(a,b,s)=>({'+':a+b,'-':a-b,'*':a*b,'/':b===0?'Error':a/b}[s]);
+function key(v){
+  if(/[0-9]/.test(v)){current=wait?v:current==='0'?v:current+v;wait=false;render();return}
+  if(v=='.'){if(wait){current='0.';wait=false}else if(!current.includes('.'))current+='.';render();return}
+  if(['+','-','*','/'].includes(v)){
+    const val=Number(current);
+    if(saved!==''&&op&&!wait){const r=calc(Number(saved),val,op); if(r==='Error'){current='Error';saved='';op='';wait=true;render();return} current=String(r); saved=String(r)}
+    else if(saved==='')saved=String(val);
+    op=v; wait=true; render(); return
+  }
+  if(v==='='){if(!op||saved==='')return; const r=calc(Number(saved),Number(current),op); current=r==='Error'?'Error':String(r); saved=''; op=''; wait=true; render(); return}
+  if(v==='C'){current='0';saved='';op='';wait=false;render();return}
+  if(v==='DEL'){current=current.length>1?current.slice(0,-1):'0';render();return}
+  if(v==='%'){current=String(Number(current)/100);render()}
+}
+k.onclick=e=>{const v=e.target.dataset.v;if(v)key(v)};
+document.onkeydown=e=>{const v=e.key;if(/[0-9]/.test(v))key(v);else if(v=='.')key(v);else if(['+','-','*','/'].includes(v))key(v);else if(v==='Enter'||v==='=')key('=');else if(v==='Escape')key('C');else if(v==='Backspace'||v==='Delete')key('DEL');else if(v==='%')key('%');else return;e.preventDefault()};
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ATHARVA 2026-collage Event</title> 
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+            }
+            body{
+                font-family:arial,sans-serif;
+                display:grid;
+                grid-template-areas:
+                "header header" 
+                "sidebar content"
+                "footer footer"
+                grid 200px 1fr;
+                gap:10px;
+                padding:10px;
+            }
+            header{
+                grid-area:header;
+                background:rgb(25, 13, 141);
+                padding:10px;
+                text-align: center;
+            }
+            nav {
+                display: flex;
+                justify-content: center;
+                gap:20 px;
+                margin-top:10 px;
+            }
+            nav a{
+                text-decoration:none;
+                color:rgb(0, 0, 0);
+                font-weight:bold;
+            }
+            aside{
+                grid-area:sidebar;
+                background:rgb(223, 69, 133);
+                padding:20px;
+            }
+            main{
+                grid-area:content;
+                background:#f5f5f565;
+                padding:20px;
+                display:flex;
+                flex-direction:column;
+                gap:20px;
+            }
+            footer{
+                grid-area:footer;
+                background:rgb(199, 230, 173);
+                padding:15px;
+                text-align:center;
+            }
+
+            th,td{
+                border:1px solid black;
+                padding:8px;
+                text-align:center;
+            }
+
+            </style>
+    </head>
+    <body>
+        <header>
+            <h1>ATHARVA 2026</h1>
+            <P>Annual Teachical and Management Fest</P>
+        </header>
+        <nav>
+            <a href="#about">About</a>|
+            <a href="#schedule">schedule</a>|
+            <a href="#speakers">speakers</a>
+        </nav>
+        <section id ="about">
+            <main>
+            <article>
+                <h2>About the Event</h2>
+                <p>ATHARVA 2026 is an inter-collegeiate fest featuring technical,management and innovation-based competitions.</p>
+            </article>
+        </section>
+
+        <section id="schedule">
+            <h2>Event schedule</h2>
+            <table border="1">
+                <tr>
+                    <th>Time</th>
+                    <th>Activity</th>
+                </tr>
+                <tr>
+                    <td>10:00 AM</td>
+                    <td>Inauguration</td>
+                </tr>
+                    <td>11:00 AM</td>
+                    <td>paper presentation</td>
+                </tr>
+                <tr>
+                    <td>12:00 PM</td>
+                    <td>Code Debugging</td>
+                </tr>    
+            </table> 
+        </section>
+        <section id ="speakers">
+            <h2>chief Guests & speakers</h2>
+                <p>Dr.A.P.J.Abdul kalam-former president of India</p>
+                <p>MR.Ajit Doual-National security Advisor of India</p>
+                <imag src="atharva.jpg"alt=ATHARVA 2026 Event width="300">
+        </main>
+        </section>
+        <footer>
+            <p> &copy; 2026 ATHARVA Swamy Vivekananda Rural First Grade College</p>
+            </footer>
+    </body>
+</html>

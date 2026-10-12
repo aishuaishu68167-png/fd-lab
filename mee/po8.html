@@ -1,0 +1,55 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartoons</title>
+</head>
+
+<body>
+
+    <div id="message"></div>
+    <div id="cartoons"></div>
+
+    <script>
+        function loadcartoons() {
+            let message = document.querySelector("#message");
+            let cartoon = document.querySelector("#cartoons");
+
+            message.textContent = "Loading cartoons...";
+            cartoon.innerHTML = "";
+
+            fetch("https://raw.githubusercontent.com/samyak2403/daily-movies-api/main/movies/cartoons/cartoons.json")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Failed to load cartoon data");
+                    }
+
+                    return response.json();
+                })
+
+                .then(data => {
+                    data.movies.forEach(cartoonItem => {
+                        cartoon.innerHTML += `
+                            <div class="card">
+                                <img src="${cartoonItem.thumbnail}" alt="${cartoonItem.title}">
+                                <h3>${cartoonItem.title}</h3>
+                            </div>
+                        `;
+                    });
+
+                    message.textContent = `${data.movies.length} cartoons loaded`;
+                })
+
+                .catch(error => {
+                    message.textContent = error.message;
+                });
+        }
+
+        loadcartoons();
+    </script>
+
+</body>
+</html>
+```
